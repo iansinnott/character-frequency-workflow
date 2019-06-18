@@ -1,0 +1,9 @@
+{
+  "name": "character-frequency-workflow",
+  "version": "1.0.0",
+  "description": "Quick Chinese character lookup for Alfred",
+  "main": "index.js",
+  "repository": "git@github.com:iansinnott/character-frequency-workflow.git",
+  "author": "Ian Sinnott <ian@iansinnott.com>",
+  "license": "MIT"
+}
