@@ -1,15 +1,13 @@
-#!/usr/bin/env node
-
 const querystring = require('querystring');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const alfy = require('alfy');
 
-const ENDPOINT = 'http://hskhsk.pythonanywhere.com/cidian';
+const ENDPOINT = 'http://hskhsk.pythonanywhere.com';
 
 const makeUrl = hz => {
   const qs = querystring.stringify({ q: hz, expand: 'yes' });
-  return ENDPOINT + '?' + qs;
+  return ENDPOINT + '/cidian?' + qs;
 };
 
 const Box = x => ({
@@ -61,7 +59,7 @@ const fetchResults = character => {
         // })
         .unwrap();
 
-      return { compounds, frequency };
+      return { compounds, frequency, url };
 
       // console.log(compounds.map(x => x.innerText + '\t' + x.title).join('\n'));
     });
@@ -73,12 +71,27 @@ const main = character => {
       const results = compounds.map(x => ({
         title: x.innerText,
         subtitle: x.title,
-        arg: x.href,
+        arg: ENDPOINT + x.href,
       }));
       alfy.output(results);
     })
     .catch(err => {
-      console.error('[ERROR]:', err);
+      alfy.output([
+        {
+          title: character,
+          subtitle: 'No results could be parsed. Enter to view the live site.',
+          arg: makeUrl(character),
+        },
+      ]);
+
+      // NOTE: I can't seem to log errors and also output a fallback at the same
+      // time...
+      // console.error(err);
+      // alfy.log(err);
+    })
+    .catch(err => {
+      console.error('System error');
+      alfy.log(err);
     });
 };
 
