@@ -5,5 +5,11 @@
   "main": "index.js",
   "repository": "git@github.com:iansinnott/character-frequency-workflow.git",
   "author": "Ian Sinnott <ian@iansinnott.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "alfy": "^0.8.0",
+    "cheerio": "^1.0.0-rc.3",
+    "node-fetch": "^2.6.0",
+    "pkg": "^4.4.0"
+  }
 }
